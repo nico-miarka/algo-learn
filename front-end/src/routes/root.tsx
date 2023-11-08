@@ -31,11 +31,8 @@ function GlobalHeader() {
     de: "Deutsch",
   }
   function setLanguage(newLang: string) {
-    // replace the language prefix in the URL
-    const newPath = location.pathname.replace(
-      new RegExp("^/" + (i18n.resolvedLanguage ?? "en") + "/"),
-      "/" + newLang + "/",
-    )
+    const regex = new RegExp(`^/(${lngs.join("|")})(/|$)`)
+    const newPath = location.pathname.replace(regex, `/${newLang}`)
     void i18n.changeLanguage(newLang)
     navigate(newPath)
   }

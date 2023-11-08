@@ -76,16 +76,16 @@ for (const questionGeneratorRoute of allQuestionGeneratorRoutes) {
         />
       )
     }
-    routes.push({
-      path: route + "/:seed",
-      loader: redirectLang,
-    })
     for (const lang of ["en", "de"]) {
       routes.push({
         path: lang + "/" + route + "/:seed",
         element: <Element />,
       })
     }
+    routes.push({
+      path: route + "/:seed",
+      loader: redirectLang,
+    })
   }
 }
 
@@ -99,13 +99,13 @@ for (const { index, path, element } of [
 ]) {
   routes.push({
     index,
-    path,
-    loader: redirectLang,
+    path: ":lang/" + (path ?? ""),
+    element,
   })
   routes.push({
     index,
-    path: ":lang/" + (path ?? ""),
-    element,
+    path,
+    loader: redirectLang,
   })
 }
 
